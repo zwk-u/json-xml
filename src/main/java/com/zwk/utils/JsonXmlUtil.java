@@ -2,6 +2,7 @@ package com.zwk.utils;
 
 import com.zwk.json.JSONLexer;
 import com.zwk.json.JSONParser;
+import com.zwk.json.impl.SyntaxErrorListener;
 import com.zwk.json.impl.XmlEmitter;
 import com.zwk.xml.XMLLexer;
 import com.zwk.xml.XMLParser;
@@ -28,6 +29,7 @@ public class JsonXmlUtil {
         XMLLexer lexer = new XMLLexer(charStream);
         CommonTokenStream input = new CommonTokenStream(lexer);
         XMLParser parser = new XMLParser(input);
+        parser.addErrorListener(new SyntaxErrorListener());
         JSONEmitter jsonEmitter = new JSONEmitter();
         if (arrayElement != null) {
             jsonEmitter.setArrayElementName(arrayElement);
@@ -61,6 +63,7 @@ public class JsonXmlUtil {
         JSONLexer lexer = new JSONLexer(charStream);
         CommonTokenStream input = new CommonTokenStream(lexer);
         JSONParser parser = new JSONParser(input);
+        parser.addErrorListener(new SyntaxErrorListener());
         XmlEmitter xmlEmitter = new XmlEmitter();
         xmlEmitter.setOnlyTag(onlyTag);
         if (arrayElement != null) {

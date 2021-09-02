@@ -1,5 +1,6 @@
 package com.zwk.xml.impl;
 
+import com.zwk.exception.ErrorTagException;
 import com.zwk.xml.XMLParser;
 import com.zwk.xml.XMLParserBaseVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -71,8 +72,18 @@ public class JSONEmitter extends XMLParserBaseVisitor<StringBuilder> {
         List<TerminalNode> name = ctx.Name();
         String left = name.get(0).getText();
         StringBuilder sb = new StringBuilder();
+        ParserRuleContext parent = ctx.getParent();
+        Boolean b = isArray.get(parent);
+        if (b != null && b) {
+            if (!Objects.equals(arrayElementName, left)) {
+                thrErrorTagException(arrayElementName, left);
+            }
+        }
         if (Objects.equals(arrayElementName, left)) {
-            ParserRuleContext parent = ctx.getParent();
+            String right = name.get(1).getText();
+            if (!Objects.equals(arrayElementName, right)) {
+                thrErrorTagException(arrayElementName, right);
+            }
             isArray.put(parent, true);
             sb.append(visit(ctx.content()));
             return sb;
@@ -88,5 +99,10 @@ public class JSONEmitter extends XMLParserBaseVisitor<StringBuilder> {
             sb.append("\"").append(left).append("\"");
         }
         return sb;
+    }
+
+    private void thrErrorTagException(String must, String now) {
+        throw new ErrorTagException("array element tag must be: " + must
+                + ", cannot be: " + now);
     }
 }

@@ -93,4 +93,23 @@ public class JsonXmlTest {
         String xml = JsonXmlUtil.jsonToXml(json, false);
         System.out.println("xml = " + xml);
     }
+    @Test
+    public void testXmlToJson09() {
+        String xml = "<person>\n" +
+                "        <element>zs</element>\n" +
+                "        <element>18</element>\n" +
+                "        <element>" +
+                "           <element>play</element>" +
+                "        </element>\n" +
+                "        <element><male/></element>" +//only tag
+                "    </person>";
+        String json = JsonXmlUtil.xmlToJson(xml);
+        System.out.println("json = " + json);
+    }
+    @Test
+    public void testJsonToXml10() {
+        String json = "{\"person\":[\"zs\",\"18\",[\"play\"],{\"male\":\"male\"}]}";//only tag
+        String xml = JsonXmlUtil.jsonToXml(json, true);
+        System.out.println("xml = " + xml);
+    }
 }
