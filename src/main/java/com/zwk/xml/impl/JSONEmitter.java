@@ -1,4 +1,5 @@
 package com.zwk.xml.impl;
+
 import com.zwk.xml.XMLParser;
 import com.zwk.xml.XMLParserBaseVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -44,7 +45,7 @@ public class JSONEmitter extends XMLParserBaseVisitor<StringBuilder> {
         } else {
             String[] array = ctx.chardata()
                     .stream()
-                    .map(c -> c.getText().replace("\n", ""))
+                    .map(c -> c.getText().replace(System.lineSeparator(), "").trim())
                     .toArray(String[]::new);
             sb.append("\"")
                     .append(String.join("", array))

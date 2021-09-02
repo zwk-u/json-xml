@@ -28,7 +28,7 @@ public class JsonXmlTest {
                 "<head>\n" +
                 "    <title>Title</title>\n" +
                 "    <person>\n" +
-                "        <name>zs</name>\n" +
+                "        <name>\nzs</name>\n" +
                 "        <age>18</age>\n" +
                 "        <hobby>" +
                 "           <array>play</array>" +//array
@@ -51,7 +51,7 @@ public class JsonXmlTest {
                 "        <name>zs</name>\n" +
                 "        <age>18</age>\n" +
                 "        <hobby>" +
-                "           <array>play</array>" +
+                "           <array>      play</array>" +
                 "        </hobby>\n" +
                 "        <male/>" +//only tag
                 "    </person>";
