@@ -46,7 +46,7 @@ public class XmlEmitter extends JSONBaseVisitor<StringBuilder> {
         tag = tag.substring(1, tag.length() - 1);
         sb.append("<").append(tag);
         StringBuilder child = visit(ctx.value());
-        if (child.length() == tag.length() && Objects.equals(tag, child.toString()) && onlyTag) {
+        if (onlyTag && child.length() == tag.length() && Objects.equals(tag, child.toString())) {
             sb.append("/>");
         } else {
             sb.append(">")
